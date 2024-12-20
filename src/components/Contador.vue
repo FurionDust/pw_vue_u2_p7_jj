@@ -1,5 +1,5 @@
 <template>
-  <h2>{{ titulo }}</h2>
+  <h2>{{ encabezado }} : {{ valor2 }}</h2>
   <p>{{ numero }} <sup>2</sup>={{ calcularCuadradoComputado }}</p>
   <p>{{ numero }} <sup>2</sup>={{ calcularCuadradoComputado }}</p>
   <p>{{ numero }} <sup>2</sup>={{ calcularCuadradoComputado }}</p>
@@ -9,13 +9,16 @@
     <button v-on:click="incrementar()">+1</button>
     <button v-on:click="decrementar()">-1</button>
   </div>
+  <div v-if="esVerdad">
+    <h1>FELIZ NAVIDAD PARA TODOS USTEDES</h1>
+  </div>
 </template>
 
 <script>
 export default {
   data() {
     return {
-      numero: 10,
+      numero: this.valor,
       titulo: "Contador",
     };
   },
@@ -37,6 +40,34 @@ export default {
       return this.numero * this.numero;
     },
   },
+  //props:['encabezado','valor' ]
+  props: {
+    encabezado: {
+      type: String,
+      validator(value) {
+        return value.includes("a");
+      },
+    },
+    valor: Number,
+    valor2: {
+      type: Number,
+      required: false,
+      default: 77,
+      validator(value) {
+        //programo mi validacion bajo mi criterio y retorno true
+        //cuando es valido para mi
+        //retorno false cuando no se valido para mi
+        return value <= 77;
+      },
+    },
+    esVerdad: {
+      type: Boolean,
+      required: true,
+    },
+    arreglo: Array,
+    fecha: Date,
+    objetoPersona: Object,
+  },
 };
 </script>
 
@@ -44,13 +75,13 @@ export default {
 button {
   background: #64b687;
   border-radius: 5px;
-  border:  1px solid #ffffff;
-  cursor: pointer ;
+  border: 1px solid #ffffff;
+  cursor: pointer;
   margin: 0px 5px;
   padding: 5px 15px;
-  box-shadow:2px 2px #2c3e50 ;
+  box-shadow: 2px 2px #2c3e50;
 }
-button:hover{
+button:hover {
   background: #5aa67b;
 }
 </style>
